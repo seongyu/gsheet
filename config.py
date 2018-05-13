@@ -4,6 +4,8 @@ from oauth2client import client
 from oauth2client import tools
 from oauth2client.file import Storage
 
+
+# google sheet configuration
 try:
     import argparse
     flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
@@ -30,3 +32,10 @@ def get_credentials():
       credentials = tools.run_flow(flow, store, flags)
       print('Storing credentials to ' + credential_path)
   return credentials
+
+
+# mysql configuration
+DB_HOST = 'localhost'
+DB_USER = 'root'
+DB_PW = ''
+DB_NAME = 'SMG'
