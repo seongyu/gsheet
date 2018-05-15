@@ -6,6 +6,10 @@ from oauth2client.file import Storage
 
 
 # google sheet configuration
+ENTER_SHEET = '1XjubDQaU3rk28RXhOZ8yVAH0gUpXVaOPp_G33wDox-4'
+PROCESS_SHEET = '13-UduYjmLbOaq6NAgIbWXJemWSeWZ712XqN9TKKfe4A'
+RELEASE_SHEET = '1J9BSeNatYRbNYSI3SmhIyrdBazDT6ZFRp0VSTHYMJJg'
+
 try:
     import argparse
     flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
@@ -37,5 +41,5 @@ def get_credentials():
 # mysql configuration
 DB_HOST = 'localhost'
 DB_USER = 'root'
-DB_PW = ''
+DB_PW = 'root1234'
 DB_NAME = 'SMG'

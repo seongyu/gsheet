@@ -10,6 +10,7 @@ step 2. install google api plugin by pip
 `pip install --upgrade google-api-python-client`
 
 step 3. install mysql library by pip
+
 `pip install PyMySQL`
 
 ### Main process : interface.py
