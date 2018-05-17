@@ -4,11 +4,15 @@ from oauth2client import client
 from oauth2client import tools
 from oauth2client.file import Storage
 
+import httplib2
+from apiclient import discovery
+import re
 
 # google sheet configuration
 ENTER_SHEET = '1XjubDQaU3rk28RXhOZ8yVAH0gUpXVaOPp_G33wDox-4'
 PROCESS_SHEET = '13-UduYjmLbOaq6NAgIbWXJemWSeWZ712XqN9TKKfe4A'
 RELEASE_SHEET = '1J9BSeNatYRbNYSI3SmhIyrdBazDT6ZFRp0VSTHYMJJg'
+RESERVE_SHEET = '1dp6EfdXMHbkqp7CuZmaXpVZuopEMbH9XeaEIGBoVylk'
 
 try:
     import argparse
@@ -36,6 +40,14 @@ def get_credentials():
       credentials = tools.run_flow(flow, store, flags)
       print('Storing credentials to ' + credential_path)
   return credentials
+
+# initailize google sheet service
+def init():
+  credentials = get_credentials()
+  http = credentials.authorize(httplib2.Http())
+  discoveryUrl = 'https://sheets.googleapis.com/$discovery/rest?version=v4'
+  service = discovery.build('sheets','v4',http=http,discoveryServiceUrl=discoveryUrl)
+  return service
 
 
 # mysql configuration

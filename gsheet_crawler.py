@@ -1,19 +1,6 @@
-import httplib2
-from apiclient import discovery
-import re
-
 # custom imports
 import config
 import db.mysql as db
-
-
-# initailize google sheet service
-def init():
-  credentials = config.get_credentials()
-  http = credentials.authorize(httplib2.Http())
-  discoveryUrl = 'https://sheets.googleapis.com/$discovery/rest?version=v4'
-  service = discovery.build('sheets','v4',http=http,discoveryServiceUrl=discoveryUrl)
-  return service
 
 
 def _enter_item(service,sheet_id):
@@ -90,23 +77,26 @@ def _release_item(service,sheet_id):
 
 
 def execute_enter(sheet_id):
-  service = init()
+  service = config.init()
   result = _enter_item(service, sheet_id)
   print(result)
 
 def execute_process(sheet_id):
-  service = init()
+  service = config.init()
   result = _process_item(service, sheet_id)
   print(result)
 
 def execute_release(sheet_id):
-  service = init()
+  service = config.init()
   result = _release_item(service, sheet_id)
   print(result)
 
 
+
+# It would run 1 or 2 times every day
 if __name__ == '__main__':
   execute_enter(config.ENTER_SHEET)
   execute_process(config.PROCESS_SHEET)
   execute_release(config.RELEASE_SHEET)
+
 
