@@ -82,32 +82,30 @@ def _arr_crt(obj, key, is_arr):
 #   return db.insert('delevery', items)
 
 def _db_procedure(items):
-  cal_id_list = []
   for dt_item in items :
     reset_cal = False
-    calendar_id = ''
     for po_item in items[dt_item]:
       for_triger = db.calendar_triger(items[dt_item][po_item], dt_item, po_item)
       if for_triger['is'] : 
         reset_cal = True
-        if len(for_triger['calendar_id']) > 0 : calendar_id = for_triger['calendar_id']
-    if reset_cal :
-      # cal.set_event(items[dt_item])
-
-
-
+      # print(for_triger)
+    #if reset_cal :
+      result = cal.set_event(items[dt_item][po_item], dt_item, po_item, for_triger['calendar_id'])
+      if len(result['id']) > 0 and len(for_triger['calendar_id']) == 0 :
+        db.calendar_id_update(po_item, dt_item, result['id'])
+  print('Done...')
+    
 def get_sheet_data(sheet_id):
   service = config.init('sheet')
   try:
     t = sheet.get_delevery_sheet(service, sheet_id)
     r = _grouping(t)
-    print('succssfully inserted..')
+    # print('succssfully inserted..')
   except Exception as err :
     print('failed..',err)
     r = []
   if len(r) > 0 :
     _db_procedure(r)
-
 
 
 if __name__ == '__main__':
