@@ -113,6 +113,12 @@ def calendar_id_update(po, start_dt, calendar_id):
     db.close()
 
 
-
+def testFn():
+  (db, cursor) = _connect()
+  stmt = 'select * from test;';
+  cursor.execute(stmt)
+  rows = cursor.fetchall()
+  db.close()
+  print(rows)
 
 
