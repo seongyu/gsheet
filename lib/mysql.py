@@ -51,11 +51,8 @@ def calendar_triger(items, dt, po):
     # 같은 description이 있을때
     if len([row for row in rows if item['description'] in row]) > 0:
       # 데이터가 다를 경우
-      if len([row for row in rows if
-       row[7]==item['unit'] and row[8]==item['delevery']]) == 0 :
-        print(rows[0])
-        print('=========|||=========|||========')
-        print(row[0])
+      if len([row for row in rows if row[7]==item['unit'] and row[8]==item['delevery']]) == 0 :
+        row = rows[0]
         _update('delevery', item, row[0])
         # if row[13] and not row[13] in cal_udt : cal_udt.append(row[13])
         if row[13] and len(row[13]) > 0 : 
