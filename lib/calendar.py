@@ -32,14 +32,16 @@ def set_event(items, timestring, po, triger):
     'dateTime' : fixed_time,
     'timeZone':'Asia/Seoul'
   }
-  if len(po) == 0 : po = '등록하지 않은 PO'
-    summary = '[{product_type}|{type}] {description}'.format(product_type=triger['product_type'], type=triger['type'], description=triger['description'])
-    if triger['type']== '납품':
-      summary = 'N' + summary
-    elif triger['type']== '입고':
-      summary = 'I' + summary
-    elif triger['type']== '반출':
-      summary = 'B' + summary
+  if len(po) == 0 : triger['description'] = '등록하지 않은 PO'
+
+  summary = '[{product_type}|{type}] {description}'.format(product_type=triger['product_type'], type=triger['type'], description=triger['description'])
+  if triger['type']== '납품':
+    summary = 'N' + summary
+  elif triger['type']== '입고':
+    summary = 'I' + summary
+  elif triger['type']== '반출':
+    summary = 'B' + summary
+      
   event = {'summary':summary, 'description':sub_str, 'start':start, 'end':start}
   if len(triger['calendar_id']) > 0 :
     result = service.events().patch(calendarId='primary', eventId=triger['calendar_id'], body=event).execute()

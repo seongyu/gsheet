@@ -6,13 +6,13 @@ import calendar_updater as cu
 
 app = Flask(__name__)
 
-@app.route('/u',methods=['post'])
-def get_data():
+@app.route('/u', methods=['post'])
+def udt_few():
   data = request.form['rows'] # [1,2,3,4]  
   return response(data)
 
-@app.route('/ua',methods=['post'])
-def get_data():
+@app.route('/ua', methods=['post'])
+def udt_lot():
   cu.get_sheet_data(config.RESERVE_SHEET)
   return response('')
 
