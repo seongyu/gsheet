@@ -13,6 +13,8 @@ def udt_few():
 
 @app.route('/ua', methods=['post'])
 def udt_lot():
+  print('comes here')
+  print(cu)
   cu.get_sheet_data(config.RESERVE_SHEET)
   return response('')
 
