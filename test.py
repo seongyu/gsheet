@@ -9,6 +9,7 @@ app = Flask(__name__)
 @app.route('/',methods=['post'])
 def get_data():
   data = request.form
+  print(data)
   return response(data)
 
 
