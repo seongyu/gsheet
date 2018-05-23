@@ -8,6 +8,8 @@ import httplib2
 from apiclient.discovery import build
 import re
 
+DTP = 'T'
+
 # google sheet configuration
 ENTER_SHEET = '1XjubDQaU3rk28RXhOZ8yVAH0gUpXVaOPp_G33wDox-4'
 PROCESS_SHEET = '13-UduYjmLbOaq6NAgIbWXJemWSeWZ712XqN9TKKfe4A'
@@ -65,7 +67,13 @@ def init(service_name):
   return service
 
 # mysql configuration
-DB_HOST = 'localhost'
-DB_USER = 'root'
-DB_PW = 'root1234'
-DB_NAME = 'SMG'
+if DTP == 'D':
+  DB_HOST = 'localhost'
+  DB_USER = 'root'
+  DB_PW = 'root1234'
+  DB_NAME = 'SMG'
+else if DTP == 'T':
+  DB_HOST = 'smg.cfqkapb3mcnh.ap-northeast-2.rds.amazonaws.com'
+  DB_USER = 'smdbadm'
+  DB_PW = 'eoqkr2018!'
+  DB_NAME = 'smglobal'
