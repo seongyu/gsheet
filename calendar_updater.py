@@ -93,6 +93,7 @@ def _db_procedure(items):
   print('Done...')
     
 def get_sheet_data(sheet_id):
+  print(sheet_id)
   service = config.init('sheet')
   try:
     t = sheet.get_delevery_sheet(service, sheet_id)
