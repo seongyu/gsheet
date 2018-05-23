@@ -6,7 +6,7 @@ import lib.mysql as db
 
 
 def testFn():
-  (db, cursor) = _connect()
+  (db, cursor) = db._connect()
   stmt = 'select * from test;';
   cursor.execute(stmt)
   rows = cursor.fetchall()
