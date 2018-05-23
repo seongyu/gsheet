@@ -97,7 +97,7 @@ def get_sheet_data(sheet_id):
   try:
     t = sheet.get_delevery_sheet(service, sheet_id)
     r = _grouping(t)
-    # print('succssfully inserted..')
+    print('succssfully gettering from sheet..')
   except Exception as err :
     print('failed..',err)
     r = []
