@@ -84,7 +84,7 @@ def calendar_triger(items, dt, po):
 
 # insert single
 def _insert(table_name, dic):
-  return None
+  # return None
   (db, cursor) = _connect()
   placeholder = ", ".join(["%s"] * len(dic))
   stmt = "insert into {table} ({columns}) values ({values});".format(table=table_name, columns=",".join(dic.keys()), values=placeholder)
@@ -98,7 +98,7 @@ def _insert(table_name, dic):
 
 # update single
 def _update(table_name, dic, idx):
-  return None
+  # return None
   (db, cursor) = _connect()
   stmt = "update {table} set product_type=%s, type=%s, status=%s, unit=%s, delevery=%s where idx={idx};".format(table=table_name, idx=idx)
   try:

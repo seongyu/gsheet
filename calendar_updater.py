@@ -85,11 +85,10 @@ def _db_procedure(items):
   for dt_item in items :
     for po_item in items[dt_item]:
       for_triger = db.calendar_triger(items[dt_item][po_item], dt_item, po_item)
-      # print(for_triger)
-    #if for_triger['is'] :
-      result = cal.set_event(items[dt_item][po_item], dt_item, po_item, for_triger)
-      if len(result['id']) > 0 and len(for_triger['calendar_id']) == 0 :
-        db.calendar_id_update(po_item, dt_item, result['id'])
+      if for_triger['is'] :
+        result = cal.set_event(items[dt_item][po_item], dt_item, po_item, for_triger)
+        if len(result['id']) > 0 and len(for_triger['calendar_id']) == 0 :
+          db.calendar_id_update(po_item, dt_item, result['id'])
   print('Done...')
     
 def get_sheet_data(sheet_id):
