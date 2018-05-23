@@ -1,7 +1,20 @@
 #custom imports
-import config
-import lib.calendar as calendar
+import config, json
+from flask import Flask, request
+#import lib.calendar as calendar
+
+app = Flask(__name__)
+
+@app.route('/',methods=['post'])
+def get_data():
+    data = request.form
+    return response(data)
+
+
+def response(data):
+    res = {'status':'OK','data':data}
+    return json.dumps(res)
+
 
 if __name__ == '__main__':
-  # get gsheet id
-  calendar.test_set_event()
+  app.run()
