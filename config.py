@@ -72,7 +72,7 @@ if DTP == 'D':
   DB_USER = 'root'
   DB_PW = 'root1234'
   DB_NAME = 'SMG'
-else if DTP == 'T':
+elif DTP == 'T':
   DB_HOST = 'smg.cfqkapb3mcnh.ap-northeast-2.rds.amazonaws.com'
   DB_USER = 'smdbadm'
   DB_PW = 'eoqkr2018!'
