@@ -18,5 +18,5 @@ def response(data):
 
 
 if __name__ == '__main__':
-  db.testFn()
-  app.run(host='0.0.0.0', port='5000')
+  # db.testFn()
+  app.run(host='0.0.0.0', port='8080')

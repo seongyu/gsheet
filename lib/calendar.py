@@ -12,11 +12,11 @@ service = config.init('calendar')
 def time_fix(timestring):
   return datetime.strptime(timestring,'%Y-%m-%d %H:%M:%S').isoformat()
 
-def set_event(items, timestring, po, cal_id):
+def set_event(items, timestring, po, triger):
   fixed_time = time_fix(timestring)
   sub_str = ''
   for item in items:
-    sub_str = sub_str + '{description} {unit} [{product_type}] [{type}] {status} \n '.format(
+    sub_str = sub_str + '{description} {unit} {status} \n '.format(
       description=item['description'], 
       product_type=item['product_type'], 
       type=item['type'],
@@ -33,9 +33,16 @@ def set_event(items, timestring, po, cal_id):
     'timeZone':'Asia/Seoul'
   }
   if len(po) == 0 : po = '등록하지 않은 PO'
-  event = {'summary':po, 'description':sub_str, 'start':start, 'end':start}
-  if len(cal_id) > 0 :
-    result = service.events().patch(calendarId='primary', eventId=cal_id, body=event).execute()
+    summary = '[{product_type}|{type}] {description}'.format(product_type=triger['product_type'], type=triger['type'], description=triger['description'])
+    if triger['type']== '납품':
+      summary = 'N' + summary
+    elif triger['type']== '입고':
+      summary = 'I' + summary
+    elif triger['type']== '반출':
+      summary = 'B' + summary
+  event = {'summary':summary, 'description':sub_str, 'start':start, 'end':start}
+  if len(triger['calendar_id']) > 0 :
+    result = service.events().patch(calendarId='primary', eventId=triger['calendar_id'], body=event).execute()
     print('udt >>',result['id'])
   else :  
     result = service.events().insert(calendarId='primary', body=event).execute()

@@ -58,18 +58,27 @@ def calendar_triger(items, dt, po):
         if row[13] and len(row[13]) > 0 : 
           for_triger['is'] = True
           for_triger['calendar_id'] = row[13]
+          for_triger['description'] = row[3]
+          for_triger['product_type'] = row[4]
+          for_triger['type'] = row[5]
         # 캘린더 ID가 없는경우
         else :
           for_triger['is'] = True
-      else:
-        row = [row for row in rows if item['description'] in row][0]
-        if row[13] and len(row[13]) > 0 : 
-          for_triger['calendar_id'] = row[13]
+          for_triger['description'] = row[3]
+          for_triger['product_type'] = row[4]
+          for_triger['type'] = row[5]
       # 데이터가 같을경우 : pass
+      # else:
+      #   row = [row for row in rows if item['description'] in row][0]
+      #   if row[13] and len(row[13]) > 0 : 
+      #     for_triger['calendar_id'] = row[13]
     # 같은 description이 없을때
     else :
       _insert('delevery', item)
       for_triger['is'] = True
+      for_triger['description'] = item['description']
+      for_triger['product_type'] = item['product_type']
+      for_triger['type'] = item['type']
 
   return for_triger
 
