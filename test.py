@@ -8,14 +8,13 @@ app = Flask(__name__)
 
 @app.route('/u', methods=['post'])
 def udt_few():
-  data = request.form['rows'] # [1,2,3,4]  
-  return response(data)
+  data = request.form['rows'] # [1,2,3,4] 
+  cu.get_sheet_data(config.RESERVE_SHEET, data)
+  return response('')
 
 @app.route('/ua', methods=['post'])
 def udt_lot():
-  print('comes here')
-  print(cu)
-  cu.get_sheet_data(config.RESERVE_SHEET)
+  cu.get_sheet_all_data(config.RESERVE_SHEET)
   return response('')
 
 def response(data):

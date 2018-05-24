@@ -73,7 +73,7 @@ def get_release_sheet(service,sheet_id):
   return items
 
 
-def get_delevery_sheet(service,sheet_id):
+def get_all_delevery_sheet(service,sheet_id):
   rangeName = '2018!A2:Q'
   request = service.spreadsheets(
     ).values(
@@ -83,4 +83,21 @@ def get_delevery_sheet(service,sheet_id):
       majorDimension='ROWS'
       )
   t = request.execute().get('values',[])
+  return t
+
+def get_delevery_sheet(service,sheet_id, arr):
+  rangeName = '2018!A2:Q'
+  request = service.spreadsheets(
+    ).values(
+    ).get(
+      spreadsheetId=sheet_id,
+      range=rangeName,
+      majorDimension='ROWS'
+      )
+  bt = request.execute().get('values',[])
+  t = []
+  for idx, it in enumerate(bt):
+    if idx in arr :
+      t.append(it)
+
   return t
