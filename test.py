@@ -3,6 +3,7 @@ import config, json
 from flask import Flask, request
 import lib.mysql as db
 import calendar_updater as cu
+import gsheet_crawler as gc
 
 app = Flask(__name__)
 
@@ -15,6 +16,12 @@ def udt_few():
 @app.route('/ua', methods=['post'])
 def udt_lot():
   cu.get_sheet_all_data(config.RESERVE_SHEET)
+  return response('')
+
+
+@app.route('/gc', methods=['post'])
+def udt_all():
+  gc.update_all_column()
   return response('')
 
 def response(data):

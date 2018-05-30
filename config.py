@@ -8,12 +8,13 @@ import httplib2
 from apiclient.discovery import build
 import re
 
-DTP = 'T'
+DTP = 'D'
 
 # google sheet configuration
 ENTER_SHEET = '1XjubDQaU3rk28RXhOZ8yVAH0gUpXVaOPp_G33wDox-4'
 PROCESS_SHEET = '13-UduYjmLbOaq6NAgIbWXJemWSeWZ712XqN9TKKfe4A'
 RELEASE_SHEET = '1J9BSeNatYRbNYSI3SmhIyrdBazDT6ZFRp0VSTHYMJJg'
+
 RESERVE_SHEET = '1dp6EfdXMHbkqp7CuZmaXpVZuopEMbH9XeaEIGBoVylk'
 
 try:
@@ -70,8 +71,8 @@ def init(service_name):
 if DTP == 'D':
   DB_HOST = 'localhost'
   DB_USER = 'root'
-  DB_PW = 'root1234'
-  DB_NAME = 'SMG'
+  DB_PW = 'tkfkdgo'
+  DB_NAME = 'All'
 elif DTP == 'T':
   DB_HOST = 'smg.cfqkapb3mcnh.ap-northeast-2.rds.amazonaws.com'
   DB_USER = 'smdbadm'

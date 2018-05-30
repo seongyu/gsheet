@@ -53,7 +53,7 @@ def calendar_triger(items, dt, po):
       # 데이터가 다를 경우
       if len([row for row in rows if row[7]==item['unit'] and row[8]==item['delevery']]) == 0 :
         row = rows[0]
-        _update('delevery', item, row[0])
+        cal_update('delevery', item, row[0])
         # if row[13] and not row[13] in cal_udt : cal_udt.append(row[13])
         if row[13] and len(row[13]) > 0 : 
           for_triger['is'] = True
@@ -74,7 +74,7 @@ def calendar_triger(items, dt, po):
       #     for_triger['calendar_id'] = row[13]
     # 같은 description이 없을때
     else :
-      _insert('delevery', item)
+      cal_insert('delevery', item)
       for_triger['is'] = True
       for_triger['description'] = item['description']
       for_triger['product_type'] = item['product_type']
@@ -83,7 +83,7 @@ def calendar_triger(items, dt, po):
   return for_triger
 
 # insert single
-def _insert(table_name, dic):
+def cal_insert(table_name, dic):
   # return None
   (db, cursor) = _connect()
   placeholder = ", ".join(["%s"] * len(dic))
@@ -97,7 +97,7 @@ def _insert(table_name, dic):
     db.close()
 
 # update single
-def _update(table_name, dic, idx):
+def cal_update(table_name, dic, idx):
   # return None
   (db, cursor) = _connect()
   stmt = "update {table} set product_type=%s, type=%s, status=%s, unit=%s, delevery=%s where idx={idx};".format(table=table_name, idx=idx)
@@ -129,5 +129,55 @@ def testFn():
   rows = cursor.fetchall()
   db.close()
   print(rows)
+
+# array {values .... , keys .... }
+def upsert(arr,table_name):
+  (db, cursor) = _connect()
+  result = True
+  try :
+    for ar in arr :
+      if table_name == 'items':
+        stmt = 'select * from {table_name} where main_code = %s and sub_code = %s;'.format(table_name=table_name)
+      else :
+        stmt = 'select * from {table_name} where main_code = %s and sub_code = %s and date_tag = %s;'.format(table_name=table_name)
+      cursor.execute(stmt, list(ar['key'].values()) )
+      rows = cursor.fetchall()
+      if len(rows) > 0 : # update
+        _update(db, cursor, table_name, ar['value'], ar['key'])
+      else :
+        for a in list(ar['key'].keys()):
+          ar['value'][a] = ar['key'][a]
+        _insert(db,cursor,table_name, ar['value'])
+    db.commit()
+  except Exception as err:
+    print(err)
+    db.rollback()
+    result = False
+  finally:
+    db.close()
+  return result
+
+
+
+# insert single
+def _insert(db, cursor, table_name, dic):
+  placeholder = ", ".join(["%s"] * len(dic))
+  stmt = "insert into {table} ({columns}) values ({values});".format(table=table_name, columns=",".join(dic.keys()), values=placeholder)
+  cursor.execute(stmt, list(dic.values()))
+
+# update single
+def _update(db, cursor, table_name, dic, key):
+  columns = []
+  for d in list(dic.keys()) :
+    if len([k for k in key.keys() if d in k]) <= 0:
+      columns.append(d+'=%s')
+
+  keys = []
+  for d in list(key.keys()) :
+    keys.append(d+'=%s')
+    dic[d] = key[d]
+
+  stmt = "update {table} set {columns} where {keys};".format(table=table_name, columns=",".join(columns), keys=" and ".join(keys))
+  cursor.execute(stmt, list(dic.values()))
 
 
