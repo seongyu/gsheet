@@ -8,7 +8,7 @@ import httplib2
 from apiclient.discovery import build
 import re
 
-DTP = 'D'
+DTP = 'T'
 
 DAILY_SEC = 60 * 60 * 24
 
@@ -73,7 +73,7 @@ def init(service_name):
 if DTP == 'D':
   DB_HOST = 'localhost'
   DB_USER = 'root'
-  DB_PW = 'tkfkdgo'
+  DB_PW = 'root1234'
   DB_NAME = 'All'
 elif DTP == 'T':
   DB_HOST = 'smg.cfqkapb3mcnh.ap-northeast-2.rds.amazonaws.com'
