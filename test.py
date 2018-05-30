@@ -18,7 +18,6 @@ def udt_lot():
   cu.get_sheet_all_data(config.RESERVE_SHEET)
   return response('')
 
-
 @app.route('/gc', methods=['post'])
 def udt_all():
   gc.update_all_column()

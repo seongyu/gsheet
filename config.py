@@ -10,6 +10,8 @@ import re
 
 DTP = 'D'
 
+DAILY_SEC = 60 * 60 * 24
+
 # google sheet configuration
 ENTER_SHEET = '1XjubDQaU3rk28RXhOZ8yVAH0gUpXVaOPp_G33wDox-4'
 PROCESS_SHEET = '13-UduYjmLbOaq6NAgIbWXJemWSeWZ712XqN9TKKfe4A'

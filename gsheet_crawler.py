@@ -47,9 +47,9 @@ def update_all_column():
   if len(array) > 0 :
     result = db.upsert(array,'manage_log')
   if result :
-    print('successfully worked')
+    print('[update all] successfully worked')
   else :
-    print('does not work because of some problems')
+    print('[update all] does not work because of some problems')
 
 def add_todays_status():
   service = config.init('sheet')
@@ -65,6 +65,15 @@ def add_todays_status():
   array = sheet.get_today_log(service, sheets, date_tag)
   if len(array) > 0 :
     result = db.upsert(array, 'manage_log')
+  if result :
+    print('[daily] successfully worked')
+  else :
+    print('[daily] does not work because of some problems')
+
 
 # add_todays_status()
 # update_all_column()
+
+if __name__ == '__main__':
+  import threading
+  threading.Timer(config.DAILY_SEC, add_todays_status).start()
